@@ -4,7 +4,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const positionsApi = createApi({
   reducerPath: "positionsApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://66262597052332d55321c9ba.mockapi.io/",
+    baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
   }),
   endpoints: (builder) => ({
     getPositions: builder.query<IPosition[], void>({

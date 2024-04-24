@@ -27,7 +27,7 @@ export default function Home() {
     <main className="min-h-screen container mx-auto py-5 space-y-2">
       <TableHeader />
       <StaffsTable staffs={staffs as []} isError={isError} isLoading={isLoading || isFetching} />
-      {isError && <Pagination handleUpdate={handleUpdate} page={Number(queryParams.page)} pageSize={Number(queryParams.limit)} />}
+      {!isError && <Pagination handleUpdate={handleUpdate} page={Number(queryParams.page)} pageSize={Number(queryParams.limit)} />}
       {deleteId && <DeleteConfirmationModal deleteId={deleteId} />}
       {updateId && <UpdateStaffModal updateId={updateId} />}
     </main>
