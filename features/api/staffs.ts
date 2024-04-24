@@ -1,12 +1,12 @@
 import { IStaff } from "@/types/todo";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-console.log();
+import { BASE_URL } from "./constant";
 
 export const staffsApi = createApi({
   reducerPath: "staffsApi",
   tagTypes: ["IStaff"],
   baseQuery: fetchBaseQuery({
-    baseUrl: process.env.BASE_URL,
+    baseUrl: BASE_URL,
   }),
   endpoints: (builder) => ({
     getStaffs: builder.query<IStaff[], string>({
