@@ -4,7 +4,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const positionsApi = createApi({
   reducerPath: "positionsApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
+    baseUrl: process.env.BASE_URL,
   }),
   endpoints: (builder) => ({
     getPositions: builder.query<IPosition[], void>({
