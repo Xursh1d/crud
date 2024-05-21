@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useGetStaffsQuery } from "@/features/api/staffs";
 import { updateParams } from "@/features/todoSlice";
 import { useAppDispatch, useAppSelector } from "@/features/store";
@@ -15,10 +15,12 @@ const DeleteConfirmationModal = dynamic(() => import("@/components").then(module
 export default function Home() {
   const { queryParams, deleteId, updateId } = useAppSelector(state => state.todo)
   const dispatch = useAppDispatch()
+  console.log(queryParams);
 
   const queryString = new URLSearchParams({ ...queryParams }).toString()
   const { data: staffs, isError, isLoading, isFetching } = useGetStaffsQuery(queryString);
 
+  // I couldn't create enough api with mockapi.io for pagination
   const handleUpdate: PaginationProps['onUpdate'] = (page: number, pageSize: number) => {
     dispatch(updateParams({ page: String(page), limit: String(pageSize) }))
   }

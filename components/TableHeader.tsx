@@ -11,7 +11,7 @@ import { Button, Icon, useToaster } from "@gravity-ui/uikit";
 import ActionButton from "./buttons/ActionButton";
 import { useAppDispatch, useAppSelector } from "@/features/store";
 import { useGetPositionsQuery } from "@/features/api/positions";
-import { setPositions, updateParams } from "@/features/todoSlice";
+import { setParams, setPositions, updateParams } from "@/features/todoSlice";
 import { ArrowsRotateLeft } from '@gravity-ui/icons';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -20,7 +20,6 @@ function TableHeader() {
   const router = useRouter()
   const { add } = useToaster()
   const [searchValue, setSearchValue] = useState("")
-  const [pageSizeValue, setPageSize] = useState<null | string>(null)
 
   const { data: positions, isLoading, isError } = useGetPositionsQuery();
   const selectOptions = positions?.map((position: IPosition) => ({ content: position.title, value: position.id }))
@@ -34,17 +33,37 @@ function TableHeader() {
   };
 
   const searchCallBack = () => {
-    dispatch(updateParams({ search: searchValue }))
+    const newParams = { ...queryParams };
+
+    if (!searchValue) delete newParams.search;
+    else {
+      newParams.search = searchValue;
+      newParams.page = "1";
+    }
+    dispatch(setParams(newParams));
   };
 
+
   const keyPressHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key == "Enter") {
-      dispatch(updateParams({ search: e.currentTarget.value }))
+    if (e.key !== "Enter") return;
+
+    const newParams = { ...queryParams };
+    if (!e.currentTarget.value) delete newParams.search;
+    else {
+      newParams.search = e.currentTarget.value;
+      newParams.page = "1";
     }
+    dispatch(setParams(newParams));
   };
 
   const positionCallBack = (value: string[]) => {
-    dispatch(updateParams({ position: value[0] || "" }))
+    const newParams = { ...queryParams };
+    if (!value[0]) delete newParams.position;
+    else {
+      newParams.position = value[0];
+      newParams.page = "1";
+    }
+    dispatch(setParams(newParams))
   };
 
   const validationSchema = Yup.object().shape({

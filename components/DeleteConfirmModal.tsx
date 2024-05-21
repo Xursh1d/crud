@@ -1,15 +1,13 @@
-"use client";;
+"use client";
 import { useDeleteStaffMutation } from "@/features/api/staffs";
 import { setDeleteId } from "@/features/todoSlice";
 import { useAppDispatch } from "@/features/store";
 import { useToaster } from "@gravity-ui/uikit";
-import { useRouter } from "next/navigation";
 import CancelButton from "./buttons/CancelButton";
 import DeleteButton from "./buttons/DeleteButton";
 import ModalContainer from "./ModalContainer";
 
 export default function DeleteConfirmationModal({ deleteId }: { deleteId: string }) {
-    const router = useRouter()
     const dispatch = useAppDispatch()
     const { add } = useToaster();
     const [deleteStaff, { isLoading, isError, isSuccess }] = useDeleteStaffMutation()

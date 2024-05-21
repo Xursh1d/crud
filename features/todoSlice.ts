@@ -42,9 +42,17 @@ export const todoSlice = createSlice({
     updateParams: (state, action) => {
       state.queryParams = { ...state.queryParams, ...action.payload };
     },
+    setParams: (state, action) => {
+      state.queryParams = action.payload;
+    },
   },
 });
 
-export const { setPositions, setUpdateId, setDeleteId, updateParams } =
-  todoSlice.actions;
+export const {
+  setPositions,
+  setParams,
+  setUpdateId,
+  setDeleteId,
+  updateParams,
+} = todoSlice.actions;
 export default todoSlice.reducer;
